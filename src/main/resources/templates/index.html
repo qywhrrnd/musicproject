@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments.html :: head"></head>
+<body class="bg-light" style='background-image:url("images/bg4.png"); background-size: cover; background-repeat: no-repeat'>
+<div th:replace="fragments.html :: main-nav"></div>
+
+<div class="container">
+    <div class="py-5 text-center">
+        <h2 style="color: lightgray">노래듣자</h2>
+        <div th:if="${!#lists.isEmpty(musicRecommendList)}">
+            <small>관리자가 사용자 여러분들을 위해 추천한 노래들입니다.</small>
+            <hr/>
+        </div>
+    </div>
+    <div th:if="${!#lists.isEmpty(musicRecommendList)}" class="row justify-content-center pt-3">
+        <div class="col-sm-8">
+            <div class="row">
+                <div class="col-md-4" th:each="music: ${musicRecommendList}">
+                    <div class="card mb-4 shadow-sm">
+                        <img th:src="${music.img}" class="card-img-top" th:alt="${music.name}">
+                        <div class="card-body">
+                            <h5 class="card-title context bookName" th:text="${music.name}"
+                                th:id="${music.name}"></h5>
+                            <p class="card-text context">
+                                <span th:each="genre: ${music.genre}"
+                                      class="font-weight-light text-monospace badge badge-primary mr-3">
+                                    <a th:href="@{'/book/category/' + ${music.genre}}"
+                                       class="text-decoration-none text-white">
+                                        <i class="fas fa-th-list"></i> <span th:text="${genre}" class="text-white">City</span>
+                                    </a>
+                                </span>
+                            </p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <small class="text-muted">
+                                    <i class="fa fa-user-circle"></i>
+                                    <span th:text="${music.artist}"></span>
+                                </small>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <small class="text-muted">
+                                    <i class="fas fa-clock"></i>
+                                    <span class="date" th:text="${music.publicationDate}">9 mins</span>
+                                </small>
+                            </div>
+                            <hr/>
+                            <div class="text-center">
+                                <button th:if="${!#lists.contains(favorMusicList, music.name)}" type="button" th:id="${music.name}" onclick="favorMusic.add_btn(this.id)" class="btn btn-secondary btn-sm favorBookAdd_btn">관심노래 추가하기</button>
+                                <button th:if="${#lists.contains(favorMusicList, music.name)}" type="button" th:id="${music.name}" onclick="favorMusic.delete_btn(this.id)" class="btn btn-danger btn-sm favorBookDelete_btn">관심노래 삭제하기</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer th:replace="fragments.html :: footer"></footer>
+<script th:replace="music-fragments.html :: favorMusic-event"></script>
+</div>
+</body>
+</html>
