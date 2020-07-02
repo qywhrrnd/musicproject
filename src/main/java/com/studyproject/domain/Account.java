@@ -39,6 +39,24 @@ public class Account {
     @Lob @Basic(fetch = FetchType.EAGER)
     private String profileImage;
 
+    //스터디 관련 알림을 이메일로 받을것인가의 여부
+    private boolean studyCreatedByEmail;
+
+    //스터디 관련 알림을 웹으로 받을것인가의 여부
+    private boolean studyCreatedByWeb = true;
+
+    //스터디 등록 알림을 이메일로 받을것인가의 여부
+    private boolean studyEnrollmentResultByEmail;
+
+    //스터디 등록 알림을 웹으로 받을것인가의 여부
+    private boolean studyEnrollmentResultByWeb = true;
+
+    //스터디 변경 알림을 이메일로 받을것인가의 여부
+    private boolean studyUpdateByEmail;
+
+    ////스터디 변경 알림을 웹으로 받을것인가의 여부
+    private boolean studyUpdateByWeb = true;
+
     public void generateEmailCheckToken() {
         this.emailCheckToken = UUID.randomUUID().toString();
     }
