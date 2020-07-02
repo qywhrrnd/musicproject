@@ -42,7 +42,7 @@ public class CrawlingService {
             String genre = "발라드";
             String artist = trElement.select("td._artist a._artist span.ellipsis").text();
             log.info(trElement.select("td.name a._title").attr("href"));
-            if(trElement.select("td.name a._title").attr("href")!=null) {
+            if(trElement.select("td.name a._title").attr("href").contains("#")) {
                 String lyricUrl = "https://music.naver.com/lyric/index.nhn?trackId=" + trElement.select("td.name a._title").attr("href").substring(1);
                 Document lyricDoc = Jsoup.connect(lyricUrl).get();
                 String lyric = lyricDoc.select("div.section_lyrics div#lyricText").text();
