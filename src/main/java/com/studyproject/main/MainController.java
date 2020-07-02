@@ -44,6 +44,6 @@ public class MainController {
     public String searchByLyric(String keyword, Model model) throws IOException {
         List<Music> musicList = musicService.getSearchByLyric(keyword);
         model.addAttribute("musicList", musicList);
-        return "/music/searchResult";
+        return "music/searchResult";
     }
 }
