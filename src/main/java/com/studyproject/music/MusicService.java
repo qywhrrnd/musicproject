@@ -1,11 +1,17 @@
 package com.studyproject.music;
 
+import com.studyproject.DTO.WordDTO;
 import com.studyproject.crawling.CrawlingService;
 import com.studyproject.domain.Account;
 import com.studyproject.domain.FavorMusic;
 import com.studyproject.domain.Music;
 import com.studyproject.favorMusic.FavorMusicRepository;
+import kr.co.shineware.nlp.komoran.constant.DEFAULT_MODEL;
+import kr.co.shineware.nlp.komoran.core.Komoran;
+import kr.co.shineware.nlp.komoran.model.KomoranResult;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,8 +19,10 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
+@Slf4j
 @RequiredArgsConstructor
 @Transactional
 @Service
@@ -106,4 +114,5 @@ public class MusicService {
     public List<Music> getSearchByLyric(String keyword) throws IOException {
         return crawlingService.getSearchByLyric(keyword);
     }
+
 }

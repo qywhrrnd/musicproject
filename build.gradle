@@ -16,6 +16,7 @@ configurations {
 
 repositories {
     mavenCentral()
+    maven { url 'https://jitpack.io' }
 }
 
 dependencies {
@@ -29,6 +30,7 @@ dependencies {
     implementation 'org.modelmapper:modelmapper:2.3.6'
     implementation 'org.springframework.boot:spring-boot-starter-data-redis'
     implementation 'org.jsoup:jsoup:1.11.3'
+    implementation 'com.github.shin285:KOMORAN:3.3.4'
     compileOnly 'org.projectlombok:lombok'
     runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
     annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'

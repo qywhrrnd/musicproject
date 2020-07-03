@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments.html :: head"></head>
+<body class="bg-light" style='background-image:url("images/bg4.png"); background-size: cover; background-repeat: no-repeat'>
+
+
+<div th:replace="fragments.html :: main-nav"></div>
+
+<div class="container">
+    <div class="py-5 text-center">
+        <h2>노래듣자</h2>
+        <div>
+            <small>교수님을 위해 만든 워드 클라우드입니다.</small>
+            <hr/>
+        </div>
+        <div id="wordcloud" style="width: 100%; height: 500px"></div>
+    </div>
+</div>
+
+
+<script th:inline="javascript">
+
+    /*<![CDATA[*/
+
+    var data = /*[[${wordCountList}]]*/ 'default';
+    console.log(data);
+
+    /*]]>*/
+
+    am4core.ready(function() {
+        // Themes begin
+        am4core.useTheme(am4themes_animated);
+        // Themes end
+        var chart = am4core.create("wordcloud", am4plugins_wordCloud.WordCloud);
+        var series = chart.series.push(new am4plugins_wordCloud.WordCloudSeries());
+        series.randomness = 0.1;
+        series.labels.template.tooltipText = "{word}: {value}";
+        series.fontFamily = "Courier New";
+        series.data = data
+        series.dataFields.word = "word";
+        series.dataFields.value = "count";
+        series.colors = new am4core.ColorSet();
+        series.colors.passOptions = {};
+    });
+</script>
+</body>
+</html>

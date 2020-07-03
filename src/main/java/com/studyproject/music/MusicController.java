@@ -1,9 +1,13 @@
 package com.studyproject.music;
 
+import com.studyproject.DTO.WordDTO;
 import com.studyproject.account.CurrentUser;
 import com.studyproject.domain.Account;
 import com.studyproject.domain.Music;
 import com.studyproject.favorMusic.FavorMusicRepository;
+import kr.co.shineware.nlp.komoran.constant.DEFAULT_MODEL;
+import kr.co.shineware.nlp.komoran.core.Komoran;
+import kr.co.shineware.nlp.komoran.model.KomoranResult;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -17,6 +21,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.validation.Valid;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 @Slf4j
@@ -63,10 +69,9 @@ public class MusicController {
     public String musicBestCellarByBallad(@CurrentUser Account account, Model model) throws Exception {
         String genre = "발라드";
         List<Music> musicList = musicRepository.findBySearchDateAndGenre(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd")), genre);
+
         List<String> favorMusicList = favorMusicRepository.findMusicNameByAccountId(account.getId());
-        for (int i = 0; i < favorMusicList.size(); i++) {
-            log.info(favorMusicList.get(i));
-        }
+
         model.addAttribute("account", account);
         model.addAttribute("musicList", musicList);
         model.addAttribute("favorMusicList", favorMusicList);
