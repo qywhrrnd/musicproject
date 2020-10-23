@@ -13,6 +13,36 @@
         <div th:if="${!#lists.isEmpty(musicRecommendList)}">
             <small>관리자가 사용자 여러분들을 위해 추천한 노래들입니다.</small>
             <hr/>
+            <div class="wrap01">
+                <div id="fb-root"></div>
+                <!--            <img src="/img/forecast.png" data-href="https://weather.naver.com/today/01110580" data-layout="button">-->
+                <!-- Your share button code -->
+                <div class="fb-share-button"
+                     data-href="https://music.naver.com/"
+                     data-layout="button">
+                </div>
+            </div>
+
+            <script src='/js/layout/share.js'></script>
+
+            <script>
+                window.fbAsyncInit = function() {
+                    FB.init({
+                        appId      : '282603849612393',
+                        xfbml      : true,
+                        version    : 'v8.0'
+                    });
+                    FB.AppEvents.logPageView();
+                };
+
+                (function(d, s, id){
+                    var js, fjs = d.getElementsByTagName(s)[0];
+                    if (d.getElementById(id)) {return;}
+                    js = d.createElement(s); js.id = id;
+                    js.src = "https://connect.facebook.net/en_US/sdk.js";
+                    fjs.parentNode.insertBefore(js, fjs);
+                }(document, 'script', 'facebook-jssdk'));
+            </script>
         </div>
     </div>
     <div th:if="${!#lists.isEmpty(musicRecommendList)}" class="row justify-content-center pt-3">

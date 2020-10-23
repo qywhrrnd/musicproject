@@ -127,6 +127,37 @@ public class MusicController {
         return "music/category/pop-list";
     }
 
+    //rnb 베스트셀러 리스트 화면 핸들러
+    @GetMapping("/music/category/rnb")
+    public String musicBestCellarByRnb(@CurrentUser Account account, Model model) throws Exception {
+        String genre = "알앤비";
+        List<Music> musicList = musicRepository.findBySearchDateAndGenre(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd")), genre);
+        List<String> favorMusicList = favorMusicRepository.findMusicNameByAccountId(account.getId());
+        for (int i = 0; i < favorMusicList.size(); i++) {
+            log.info(favorMusicList.get(i));
+        }
+        model.addAttribute("account", account);
+        model.addAttribute("musicList", musicList);
+        model.addAttribute("favorMusicList", favorMusicList);
+
+        return "music/category/rnb-list";
+    }
+
+    @GetMapping("/music/category/j-pop")
+    public String musicBestCellarByJpop(@CurrentUser Account account, Model model) throws Exception {
+        String genre = "j-pop";
+        List<Music> musicList = musicRepository.findBySearchDateAndGenre(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd")), genre);
+        List<String> favorMusicList = favorMusicRepository.findMusicNameByAccountId(account.getId());
+        for (int i = 0; i < favorMusicList.size(); i++) {
+            log.info(favorMusicList.get(i));
+        }
+        model.addAttribute("account", account);
+        model.addAttribute("musicList", musicList);
+        model.addAttribute("favorMusicList", favorMusicList);
+
+        return "music/category/j-pop-list";
+    }
+
     @GetMapping("/music/detail/{id}")
     public String musicDetailForm(@CurrentUser Account account, @PathVariable Long id, Model model) {
         Music music = musicRepository.findMusicById(id);

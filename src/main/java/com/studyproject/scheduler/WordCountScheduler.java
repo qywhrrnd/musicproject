@@ -27,7 +27,7 @@ public class WordCountScheduler {
     private final WordCountRepository wordCountRepository;
     private final MusicRepository musicRepository;
 
-    @Scheduled(cron = "0 0/50 16 * * *")
+    @Scheduled(cron = "0 0/35 16 * * *")
     public void insertWordCountInfo() {
         List<Music> musicList = musicRepository.findBySearchDateAndRank(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd")));
 
@@ -42,8 +42,8 @@ public class WordCountScheduler {
         Iterator<Music> InList = musicList.iterator();
 
         int t=0;
-        if (musicList.size() > 20) {
-            while (t < 70) {
+        if (musicList.size() > 50) {
+            while (t < 50) {
                 log.info("문장 분석중입니다.");
                 Music pDTO = new Music();
                 pDTO = InList.next();
